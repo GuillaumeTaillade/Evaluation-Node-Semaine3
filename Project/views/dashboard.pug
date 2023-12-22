@@ -19,6 +19,31 @@ html(lang="en")
 
           // canvas graphique
           canvas(id="myChart" width="800" height="400")
+
+          // Formulaire création de meuble
+          form(action="/meubles/create", method="post")
+            .mb-3
+              label.form-label(for="nom") Nom du meuble
+              input.form-control(type="text", id="nom", name="nom", placeholder="Entrez le nom du meuble", required)
+
+            .mb-3
+              label.form-label(for="categorie") Catégorie
+              select.form-select(id="categorie", name="categorie", required)
+                option(value="Armoire") Armoire
+                option(value="Etagère") Etagère
+
+            .mb-3
+              label.form-label(for="materiaux") Matériaux
+              select.form-select(id="materiaux", name="materiaux", multiple="multiple", required)
+                option(value="Bois") Bois
+                option(value="Fer") Fer
+                option(value="Plastique") Plastique
+
+            .mb-3
+              label.form-label(for="keywords") Mots-clés (séparés par des virgules)
+              input.form-control(type="text", id="keywords", name="keywords", placeholder="Entrez les mots-clés")
+
+            button.btn.btn-primary(type="submit") Créer le meuble
           
 
     // Fin du body Scripts Bootstrap, React, et Chart.js 
@@ -33,15 +58,15 @@ html(lang="en")
       var ctx = document.getElementById('myChart').getContext('2d');
       
       // Données pour le graphique
-      var data = {
-        labels: ['Armoire', 'Etagère'],
-        datasets: [{
-          label: 'Nombre de meubles réalisés',
-          data: [10, 5],
-          backgroundColor: ['#3498db', '#e74c3c'],
-          borderWidth: 1
-        }]
-      };
+        var data = {
+          labels: ['Armoire', 'Etagère'],
+          datasets: [{
+            label: 'Nombre de meubles réalisés',
+            data: [10, 5],
+            backgroundColor: ['#3498db', '#e74c3c'],
+            borderWidth: 1
+          }]
+        };
 
       // Options du graphique
       var options = {

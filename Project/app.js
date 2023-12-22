@@ -1,6 +1,10 @@
+// coté serveur
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+// j'ajoute les routes
+const meublesRoutes = require('./routes/meubles'); // Assure-toi d'ajuster le chemin selon ta structure
+const viewsRoutes = require('./routes/views'); // Assure-toi d'ajuster le chemin selon ta structure
 
 const app = express();
 const port = 3000; 
