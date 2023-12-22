@@ -21,8 +21,33 @@ const Utilisateur = require('./models/utilisateur')
 // Importation des routes
 const meublesRoute = require('./routes/meubles');
 
-// Utilisation des routes
+/* Utilisation des routes */
 app.use('/meubles', meublesRoute);
+
+// Route pour la page de statistiques
+app.get('/statistics', async (req, res) => {
+  try {
+    // Je récupère le nombre de meuble par catégorie
+    const furnitureStats = await Meuble.aggregate([
+      {
+        $group: {
+          _id: "$categorie",
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Je transforme les données
+    const labels = furnitureStats.map(stat => stat._id);
+    const data = furnitureStats.map(stat => stat.count);
+
+    // Afficher la page de données
+    res.render('statistics', { labels, data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur lors de la récupération des statistiques');
+  }
+});
 
 // Middleware / Gestion d'erreur
 app.use((err, req, res, next) => {
